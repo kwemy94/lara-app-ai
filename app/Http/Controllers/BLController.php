@@ -15,6 +15,7 @@ class BLController extends Controller
 
         $absolutePath = storage_path('app/private/' . $path);
 
+        dd($absolutePath);
         // OCR externe
         $text = $this->extractTextWithOCR($absolutePath);
 
@@ -69,7 +70,7 @@ class BLController extends Controller
                 config('services.ocrspace.endpoint'),
                 [
                     'apikey' => config('services.ocrspace.key'),
-                    'language' => 'eng',
+                    'language' => 'fre',
                     'isOverlayRequired' => false,
                     'file' => fopen($filePath, 'r'),
                 ]

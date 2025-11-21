@@ -39,6 +39,11 @@ return [
         'key' => env('OCRSPACE_API_KEY'),
         'endpoint' => env('OCRSPACE_ENDPOINT', 'https://api.ocr.space/parse/image'),
     ],
+    
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+        'model' => env('OPENAI_MODEL', 'gpt-4o-mini'),
+    ],
 
 
 

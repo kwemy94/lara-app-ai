@@ -98,9 +98,7 @@
         <h2>Uploader BL</h2>
 
         <form action="/form-c/upload" method="POST" enctype="multipart/form-data">
-            <!-- CSRF pour Laravel -->
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+            @csrf
             <label>Choisir un fichier :</label>
 
             <label class="file-input">
