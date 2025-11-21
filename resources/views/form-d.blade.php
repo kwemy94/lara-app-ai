@@ -91,7 +91,7 @@
 
             <!-- Pays de destination (pré-rempli) -->
             <label>Pays de destination</label>
-            <input type="text" name="destination" value="{{ $destination_country }}" readonly>
+            <input type="text" name="destination" value="{{ $destinationCountry }}" readonly>
 
             <!-- Numéro du BL -->
             <label>Numéro du BL</label>
