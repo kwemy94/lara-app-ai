@@ -15,7 +15,7 @@ class BLController extends Controller
 
         $absolutePath = storage_path('app/private/' . $path);
 
-        dd($absolutePath);
+        // dd($absolutePath);
         // OCR externe
         $text = $this->extractTextWithOCR($absolutePath);
 
