@@ -44,7 +44,9 @@ return [
         'key' => env('OPENAI_API_KEY'),
         'model' => env('OPENAI_MODEL', 'gpt-4o-mini'),
     ],
-
-
-
+    
+    'taggun' => [
+        'key' => env('TAGGUN_API_KEY'),
+        'endpoint' => env('TAGGUN_ENDPOINT', 'https://api.taggun.io/api/receipt/v1/verbose/file'),
+    ],
 ];

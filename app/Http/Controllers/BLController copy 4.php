@@ -18,7 +18,7 @@ class BLController extends Controller
         // dd($absolutePath);
         // OCR externe
         $text = $this->extractTextWithOCR($absolutePath);
-        // dd($text);
+
         // Extraction du pays
         // preg_match('/PORT OF DISCHARGE\s*([A-Z]+)/i', $text, $match);
         // $destinationCountry = $match[1] ?? null;
@@ -34,9 +34,18 @@ class BLController extends Controller
     // --- Extraction du pays ---
     private function getDestinationCountry($text)
     {
-        $text = strtoupper($text);
+        // Capture du port (tolère plusieurs mots)
+        preg_match('/PORT OF DISCHARGE\s*[:\-]*\s*([A-Z\s]+)/i', $text, $match);
 
-        // Liste ports → pays
+        if (!isset($match[1])) {
+            return 'UNKNOWN';
+        }
+
+        // On prend le premier mot du port
+        $port = explode(' ', trim($match[1]))[0];
+        $port = strtoupper($port);
+
+        // Mapping port -> pays
         $mapping = [
             'KRIBI' => 'CAMEROON',
             'DOUALA' => 'CAMEROON',
@@ -44,24 +53,11 @@ class BLController extends Controller
             'LOME' => 'TOGO',
             'ABIDJAN' => 'CÔTE D\'IVOIRE',
             'MOMBASA' => 'KENYA',
-            'DAR ES SALAAM' => 'TANZANIA',
-            'DAR' => 'TANZANIA',
-            'BURKINA FASO' => 'BURKINA FASO',
-            'BURKINA' => 'BURKINA FASO',
+            'DAR' => 'TANZANIA',           // DAR = Dar es Salaam
+            'SALAM' => 'TANZANIA',         // au cas où OCR sépare
         ];
 
-        $countryExist = null;
-        foreach ($mapping as $port => $country) {
-            if (str_contains($text, $port)) {
-                $countryExist = $country;
-            }
-        }
-
-        if (!is_null($countryExist)) {
-            return $countryExist;
-        }
-
-        return 'UNKNOWN';
+        return $mapping[$port] ?? 'UNKNOWN';
     }
 
 
@@ -75,7 +71,7 @@ class BLController extends Controller
                 [
                     'apikey' => config('services.ocrspace.key'),
                     'language' => 'fre',
-                    'isOverlayRequired' => "false",
+                    'isOverlayRequired' => false,
                     'file' => fopen($filePath, 'r'),
                 ]
             );

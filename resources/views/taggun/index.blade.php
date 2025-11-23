@@ -1,9 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-    <h2>OCR SPACE</h2>
+    <h2>TAGGUN OCR</h2>
 
-    <form action="/form-c/upload" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('taggun.upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label>Choisir un fichier :</label>
 
