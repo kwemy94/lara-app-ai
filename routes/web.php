@@ -17,3 +17,6 @@ Route::get('/form-d', function () {
 
 Route::get('/taggun', [TaggunController::class, 'index'])->name('taggun.index');
 Route::post('/taggun/upload', [TaggunController::class, 'handleUpload'])->name('taggun.upload');
+Route::resource('/n8n', App\Http\Controllers\N8nController::class);
+Route::post('/n8n/upload', [App\Http\Controllers\N8nController::class, 'sendDocumentToN8N'])->name('n8n.upload');
+Route::post('/send-to-make', [App\Http\Controllers\N8nController::class, 'sendToMake'])->name('n8n.sendToMake');
