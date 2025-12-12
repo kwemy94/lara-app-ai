@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    <h2>Automation n8n</h2>
+    <h2>Automation make</h2>
 
     <form action="{{ route('n8n.sendToMake') }}" method="POST" enctype="multipart/form-data">
         @csrf

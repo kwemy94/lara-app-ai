@@ -153,7 +153,7 @@
                 <a href="#">API 4 AI</a>
             </li>
             <li>
-                <a href="{{ route('n8n.index') }}">Automation n8n</a>
+                <a href="{{ route('n8n.index') }}">Automation make</a>
             </li>
         </ul>
     </div>
