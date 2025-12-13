@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DocumentAI;
 use App\Models\N8n;
+use App\Models\DocumentAI;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
 class N8nController extends Controller
@@ -68,7 +69,9 @@ class N8nController extends Controller
 
     public function receiveMakeResult(Request $request)
     {
-        $data = $request->validate([
+        try {
+            Log::info('Callback Make reçu: ' . $request->getContent());
+            $data = $request->validate([
             'document_id' => 'required',
             'port_embarquement' => 'required|string',
             'port_destination' => 'required|string',
@@ -80,6 +83,10 @@ class N8nController extends Controller
         ]);
 
         return response()->json(['message' => 'OK']);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de la journalisation du callback Make: ' . $e->getMessage());
+        }
+        
     }
 
 

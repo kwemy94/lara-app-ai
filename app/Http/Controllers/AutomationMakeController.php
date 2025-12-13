@@ -22,7 +22,17 @@ class AutomationMakeController extends Controller
             'document' => 'required|file|mimes:pdf,jpg,jpeg,png'
         ]);
 
-        $path = $request->file('document')->store('uploads', 'public');
+        $file = $request->file('document');
+
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+
+        // chemin réel public
+        $file->move(
+            public_path('storage/uploads'),
+            $filename
+        );
+
+        $path = 'uploads/' . $filename;
 
         $fileUrl = asset('storage/' . $path);
 
@@ -31,7 +41,7 @@ class AutomationMakeController extends Controller
             'file_type' => $request->file('document')->getClientMimeType(),
         ]);
 
-        return response()->json($response->json([$fileUrl]));
+        return response()->json([$response->json(), $fileUrl]);
     }
 
 
