@@ -20,3 +20,5 @@ Route::post('/taggun/upload', [TaggunController::class, 'handleUpload'])->name('
 Route::resource('/n8n', App\Http\Controllers\N8nController::class);
 Route::post('/n8n/upload', [App\Http\Controllers\N8nController::class, 'sendDocumentToN8N'])->name('n8n.upload');
 Route::post('/send-to-make', [App\Http\Controllers\N8nController::class, 'sendToMake'])->name('n8n.sendToMake');
+Route::post('/send-to-make-v2', [App\Http\Controllers\AutomationMakeController::class, 'sendToMake'])->name('make.sendToMake');
+Route::resource('/make', App\Http\Controllers\AutomationMakeController::class);

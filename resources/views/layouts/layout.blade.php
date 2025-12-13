@@ -155,6 +155,9 @@
             <li>
                 <a href="{{ route('n8n.index') }}">Automation make</a>
             </li>
+            <li>
+                <a href="{{ route('make.index') }}">Automation make V2</a>
+            </li>
         </ul>
     </div>
 
