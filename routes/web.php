@@ -1,5 +1,6 @@
 <?php
 
+use OpenAI\Laravel\Facades\OpenAI;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BLController;
 use App\Http\Controllers\TaggunController;
@@ -22,3 +23,29 @@ Route::post('/n8n/upload', [App\Http\Controllers\N8nController::class, 'sendDocu
 Route::post('/send-to-make', [App\Http\Controllers\N8nController::class, 'sendToMake'])->name('n8n.sendToMake');
 Route::post('/send-to-make-v2', [App\Http\Controllers\AutomationMakeController::class, 'sendToMake'])->name('make.sendToMake');
 Route::resource('/make', App\Http\Controllers\AutomationMakeController::class);
+Route::post('/openai/send-bl', [App\Http\Controllers\OpenAIAPIController::class, 'sendBL'])->name('openai.sendBL');
+Route::resource('/openai', App\Http\Controllers\OpenAIAPIController::class);
+
+Route::get('/ai/test', function () {
+    try {
+        $result = OpenAI::chat()->create([
+            'model' => 'gpt-4-turbo-preview',
+            'messages' => [
+                ['role' => 'system', 'content' => 'You are a helpful Laravel assistant.'],
+                ['role' => 'user', 'content' => 'Explain Laravel in exactly 3 sentences. Be encouraging!'],
+            ],
+        ]);
+
+        $response = $result->choices[0]->message->content;
+
+        return response()->json([
+            'success' => true,
+            'response' => $response,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'error' => $e->getMessage(),
+        ], 500);
+    }
+});

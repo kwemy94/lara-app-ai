@@ -158,6 +158,9 @@
             <li>
                 <a href="{{ route('make.index') }}">Automation make V2</a>
             </li>
+            <li>
+                <a href="{{ route('openai.index') }}">Open AI API</a>
+            </li>
         </ul>
     </div>
 

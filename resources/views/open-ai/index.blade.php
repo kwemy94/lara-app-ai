@@ -1,0 +1,20 @@
+@extends('layouts.layout')
+
+@section('content')
+    <h2>OPEN AI API</h2>
+
+    <form action="{{ route('openai.sendBL') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <label>Choisir un fichier :</label>
+
+        <label class="file-input">
+            Cliquez ici pour sélectionner un fichier
+            <input type="file" name="document" required accept=".pdf,.jpg,.jpeg,.png,.webp,.docx"
+                onchange="showFileName(this)">
+        </label>
+
+        <div id="fileName" class="file-name"></div>
+
+        <button type="submit" class="submit-btn">Envoyer</button>
+    </form>
+@endsection
